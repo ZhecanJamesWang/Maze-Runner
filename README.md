@@ -11,11 +11,11 @@ First, a Level selection can be used to pick difficulty (from pre-built maze fil
 ## Technical Report: 
 
 ### ADTs
-2D array (probably linked list, but can be decided) - read from text and print to GUI
+1. 2D array (probably linked list, but can be decided) - read from text and print to GUI
 Reason: it is easy to display something on a GUI using 2D arrays (think X, Y coordinates) instead of with a map
-graph - built from previous array
+2. graph - built from previous array
 Reason: it is easier to search using a graph, so using some time to copy our array to a graph is helpful
-queue - user/computer movement or path
+3. queue - user/computer movement or path
 Reason: Process the user’s moves in the order they are inputted, so as not to process keystrokes in the wrong order or cause confusion
 
 ### Classes:
