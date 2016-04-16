@@ -29,16 +29,16 @@ Reason: Process the user’s moves in the order they are inputted, so as not to 
 
 ### Actions:
 1. Maze - everything maze related
- a. readTextMap(): read a text file that contains 0s and 1s forming a maze
+ * readTextMap(): read a text file that contains 0s and 1s forming a maze
   * Input: String fileName
   * Output: Int [][] (2D array)
- b. createNewMaze(): create a new “random” maze using search to verify it is solvable
+ * createNewMaze(): create a new “random” maze using search to verify it is solvable
   * Output: Int [][] (2D array)
- c. generateGraph(): create a graph from the 2D maze array
+ * generateGraph(): create a graph from the 2D maze array
   * Output: graph graphMap
- d. getMap(): getter for the map object, returns in array format
+ * getMap(): getter for the map object, returns in array format
   * Output: Int [][] (2D array)
- e. getGraph(): getter for graph, returns in graph format
+ * getGraph(): getter for graph, returns in graph format
   * Output: graph graphMap
 
 2. Search - generate and make solved paths
