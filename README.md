@@ -1,18 +1,16 @@
 # Maze-Runner
 Data Structure Final Project
 
-
-
-Technical Report: 
 Philip Seger, Zhecan Wang, Ziyi Lan
 
-User Manual
+## User Manual
 The main idea behind our project is to implement a maze in some capacity that a user can interact with. While we have not truly decided on what form the interaction will take, our two ideas are either the user can navigate the game as a maze, with helpful hints to help them if they get stuck, or to use the maze as a way of teaching about graph search techniques, illustrating breadth-first vs. depth-first search visually. Our general concept might look a bit like below:
 
 First, a Level selection can be used to pick difficulty (from pre-built maze files (though depending on time we may “randomly” generate mazes)). If a user gets stuck while navigating a maze, they can use the Hint option to show them the best next move. Then, to show a visual representation of different search techniques, DFS and BFS will paint the maze, showing the progress to the end. Finally, the body of the screen is occupied by the Maze itself, and a Steps counter in the bottom corner shows you how you are doing.
 
+## Technical Report: 
 
-ADTs
+### ADTs
 2D array (probably linked list, but can be decided) - read from text and print to GUI
 Reason: it is easy to display something on a GUI using 2D arrays (think X, Y coordinates) instead of with a map
 graph - built from previous array
@@ -20,7 +18,7 @@ Reason: it is easier to search using a graph, so using some time to copy our arr
 queue - user/computer movement or path
 Reason: Process the user’s moves in the order they are inputted, so as not to process keystrokes in the wrong order or cause confusion
 
-Classes:
+### Classes:
 Maze
 Search
 Visualization Classes
@@ -29,7 +27,7 @@ Panel Class
 updateGraph Class
 Driver/User
 
-Actions:
+### Actions:
 Maze - everything maze related
 readTextMap(): read a text file that contains 0s and 1s forming a maze
 Input: String fileName
