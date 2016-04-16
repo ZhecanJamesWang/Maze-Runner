@@ -22,47 +22,47 @@ Reason: Process the user’s moves in the order they are inputted, so as not to 
 1. Maze
 2. Search
 3. Visualization Classes
-⋅⋅1.Frame Class
+ * Frame Class
  * Panel Class
  * updateGraph Class
-4. Driver/User
+ * Driver/User
 
 ### Actions:
-Maze - everything maze related
-readTextMap(): read a text file that contains 0s and 1s forming a maze
-Input: String fileName
-Output: Int [][] (2D array)
-createNewMaze(): create a new “random” maze using search to verify it is solvable
-Output: Int [][] (2D array)
-generateGraph(): create a graph from the 2D maze array
-Output: graph graphMap
-getMap(): getter for the map object, returns in array format
-Output: Int [][] (2D array)
-getGraph(): getter for graph, returns in graph format
-Output: graph graphMap
+1. Maze - everything maze related
+ a. readTextMap(): read a text file that contains 0s and 1s forming a maze
+  * Input: String fileName
+  * Output: Int [][] (2D array)
+ b. createNewMaze(): create a new “random” maze using search to verify it is solvable
+  * Output: Int [][] (2D array)
+ c. generateGraph(): create a graph from the 2D maze array
+  * Output: graph graphMap
+ d. getMap(): getter for the map object, returns in array format
+  * Output: Int [][] (2D array)
+ e. getGraph(): getter for graph, returns in graph format
+  * Output: graph graphMap
 
-Search - generate and make solved paths
-dfs(): perform the depth first search on the graph
-Input: Point currentLocation
-Output: LinkedQueue pathToEndPoint
-bfs(): perform the breadth first search on the graph
-Input: Point currentLocation
-Output: LinkedQueue pathToEndPoint
-optimal(): perform all the algorithms in the class, compare their steps and choose the fastest one
-Input: N/A
-Output: String Algname, LinkedQueue pathToEndPoint
+2. Search - generate and make solved paths
+ a. dfs(): perform the depth first search on the graph
+  * Input: Point currentLocation
+  * Output: LinkedQueue pathToEndPoint
+ b. bfs(): perform the breadth first search on the graph
+  * Input: Point currentLocation
+  * Output: LinkedQueue pathToEndPoint
+ c. optimal(): perform all the algorithms in the class, compare their steps and choose the fastest one
+  * Input: N/A
+  * Output: String Algname, LinkedQueue pathToEndPoint
 
-Visualizations - colored paths on the GUI to show progress (note: multiple classes)
-Frame Class
-Panel Class
-updateGraph Class
-getSteps()
-Input: Queue steps
+3. Visualizations - colored paths on the GUI to show progress (note: multiple classes)
+ a. Frame Class
+ b. Panel Class
+ c. updateGraph Class
+ d. getSteps()
+  * Input: Queue steps
 	
-Driver/User - take keyboard input or console commands to control movement (also deals with automatic computer input (for use in searches))
-getInput(): receive commands from user keyboard
-Input: keyboard presses (individually)
-Output: LinkedQueue of saved commands
-sendCommands(): used so other functions can send movement instructions
-Input: command
-Output: LinkedQueue of saved commands
+4. Driver/User - take keyboard input or console commands to control movement (also deals with automatic computer input (for use in searches))
+ a. getInput(): receive commands from user keyboard
+  * Input: keyboard presses (individually)
+  * Output: LinkedQueue of saved commands
+ b. sendCommands(): used so other functions can send movement instructions
+  * Input: command
+  * Output: LinkedQueue of saved commands
