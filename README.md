@@ -30,16 +30,16 @@ Reason: Process the user’s moves in the order they are inputted, so as not to 
 ### Actions:
 1. Maze - everything maze related
  1. readTextMap(): read a text file that contains 0s and 1s forming a maze
-   * Input: String fileName
-   * Output: Int [][] (2D array)
+    * Input: String fileName
+    * Output: Int [][] (2D array)
  2. createNewMaze(): create a new “random” maze using search to verify it is solvable
-   * Output: Int [][] (2D array)
+    * Output: Int [][] (2D array)
  3. generateGraph(): create a graph from the 2D maze array
-   * Output: graph graphMap
+    * Output: graph graphMap
  4. getMap(): getter for the map object, returns in array format
-   * Output: Int [][] (2D array)
+    * Output: Int [][] (2D array)
  5. getGraph(): getter for graph, returns in graph format
-   * Output: graph graphMap
+    * Output: graph graphMap
 
 2. Search - generate and make solved paths
  a. dfs(): perform the depth first search on the graph
