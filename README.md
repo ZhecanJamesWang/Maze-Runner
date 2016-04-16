@@ -42,27 +42,27 @@ Reason: Process the user’s moves in the order they are inputted, so as not to 
     * Output: graph graphMap
 
 2. Search - generate and make solved paths
- a. dfs(): perform the depth first search on the graph
-  * Input: Point currentLocation
-  * Output: LinkedQueue pathToEndPoint
- b. bfs(): perform the breadth first search on the graph
-  * Input: Point currentLocation
-  * Output: LinkedQueue pathToEndPoint
- c. optimal(): perform all the algorithms in the class, compare their steps and choose the fastest one
-  * Input: N/A
-  * Output: String Algname, LinkedQueue pathToEndPoint
+ 1. dfs(): perform the depth first search on the graph
+    * Input: Point currentLocation
+    * Output: LinkedQueue pathToEndPoint
+ 2. bfs(): perform the breadth first search on the graph
+    * Input: Point currentLocation
+    * Output: LinkedQueue pathToEndPoint
+ 3. optimal(): perform all the algorithms in the class, compare their steps and choose the fastest one
+    * Input: N/A
+    * Output: String Algname, LinkedQueue pathToEndPoint
 
 3. Visualizations - colored paths on the GUI to show progress (note: multiple classes)
- a. Frame Class
- b. Panel Class
- c. updateGraph Class
- d. getSteps()
-  * Input: Queue steps
+ 1. Frame Class
+ 2. Panel Class
+ 3. updateGraph Class
+ 4. getSteps()
+   * Input: Queue steps
 	
 4. Driver/User - take keyboard input or console commands to control movement (also deals with automatic computer input (for use in searches))
- a. getInput(): receive commands from user keyboard
-  * Input: keyboard presses (individually)
-  * Output: LinkedQueue of saved commands
- b. sendCommands(): used so other functions can send movement instructions
-  * Input: command
-  * Output: LinkedQueue of saved commands
+ 1. getInput(): receive commands from user keyboard
+   * Input: keyboard presses (individually)
+   * Output: LinkedQueue of saved commands
+ 2. sendCommands(): used so other functions can send movement instructions
+   * Input: command
+   * Output: LinkedQueue of saved commands
