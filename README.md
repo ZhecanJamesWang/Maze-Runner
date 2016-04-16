@@ -22,9 +22,9 @@ Reason: Process the user’s moves in the order they are inputted, so as not to 
 1. Maze
 2. Search
 3. Visualization Classes
-   *Frame Class
-   *Panel Class
-   *updateGraph Class
+⋅⋅1.Frame Class
+ * Panel Class
+ * updateGraph Class
 4. Driver/User
 
 ### Actions:
