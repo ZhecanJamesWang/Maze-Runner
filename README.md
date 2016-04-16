@@ -19,13 +19,13 @@ Reason: it is easier to search using a graph, so using some time to copy our arr
 Reason: Process the user’s moves in the order they are inputted, so as not to process keystrokes in the wrong order or cause confusion
 
 ### Classes:
-Maze
-Search
-Visualization Classes
-Frame Class
-Panel Class
-updateGraph Class
-Driver/User
+1. Maze
+2. Search
+3. Visualization Classes
+ a. Frame Class
+ b. Panel Class
+ c. updateGraph Class
+4. Driver/User
 
 ### Actions:
 Maze - everything maze related
