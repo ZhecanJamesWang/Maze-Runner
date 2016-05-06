@@ -1,109 +1,83 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.Vector;
 
 /**
- * Created by philip on 4/16/16.
+ * Created by philip on 5/5/16.
+ * Implementation that controls movement and maze events.
  */
 public class Maze {
-    private int[][] maze;
-//    TODO create a map variable
+    private final int rows = 15; //TODO unconstrained the maze size, keeping at 15x15 for now
+    private final int cols = 15; //TODO unconstrained the maze size, keeping at 15x15 for now
+    private Cell[][] grid;
 
-    /** TODO implement noargs Maze constructor
-     * No args constructor, builds a random maze.
-     *
-     */
-    public Maze() {
+    public Maze(String level) {
+        int[][] levelMap = readLevel(level);
 
+        grid = new Cell[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                grid[i][j] = new Cell();  // Initialize each Cell in maze
+
+                if (levelMap[i][j] == 1) {
+                    grid[i][j].setWall(true);
+                }
+                else
+                    grid[i][j].setWall(false);
+            }
+        }
     }
 
-    /** TODO implement Maze constructor(filename)
-     * Constructor that takes a maze filename and generates
-     * the necessary objects for a maze.
-     * @param filename
-     */
-    public Maze(String filename) {
-        maze = new int[15][15]; //TODO unconstrain the maze size, keeping at 15x15 for now
+    public int[][] readLevel(String level) {
+        int[][] map = new int[15][15]; //TODO unconstrained the maze size, keeping at 15x15 for now
 
-//        load the text file
         try {
-            Scanner scan = new Scanner(new FileReader(filename));
+            Scanner scan = new Scanner(new FileReader(level));
 
-//            save the contents of the maze file into the maze array
             int row = 0;
             while (scan.hasNextLine()) {
                 String line = scan.nextLine();
 
                 for (int column = 0; column < line.length(); column++) {
-                    maze[row][column] = line.charAt(column) - 48;
+                    map[row][column] = line.charAt(column) - 48;
                 }
                 row++;
             }
-        }
-        catch (FileNotFoundException exception) {
+        } catch (FileNotFoundException exception) {
             System.out.println("Unable to locate text file. Check the name again.");
         }
+
+        return map;
     }
 
-    /** TODO implement generateGraph
-     * Generates a graph from a 2D (int[][]) array.
-     */
-    public void generateGraph() {
-
+    public Cell getCell(int row, int col) {
+        return grid[row][col];
     }
 
-    /** TODO implement getMap
-     * Getter for map.
-     * @return
-     */
-    public int[][] getMap() {
-        return maze;
+
+}
+
+
+/**
+ * Created by philip on 5/5/16.
+ * Represents one cell in the maze.
+ */
+class Cell {
+    private boolean wall;
+
+    public Cell() {
+        this.wall = true;
     }
 
-    /** TODO implement setMap
-     * Setter for map.
-     * @param x coordinate
-     * @param y coordinate
-     * @param newVal value to replace at coords
-     */
-    public void setMap(int x, int y, int newVal) {
-        maze[x][y] = newVal;
+    public boolean isWall() {
+        return wall;
     }
 
-    /** TODO implement getGraph
-     * Getter for graph.
-     */
-    public void getGraph() {
-
+    public void setWall(boolean isWall) {
+        wall = isWall;
     }
 
-    /** TODO implement setGraph
-     * Setter for graph.
-     */
-    public void setGraph() {
-
-    }
-
-    public String toString() {
-        String result = "";
-        for (int i = 0; i < maze.length; i++) {
-            for (int j = 0; j < maze.length; j++) {
-                result += maze[i][j];
-            }
-            result += "\n";
-        }
-        return result;
-    }
-
-    /**
-     * Main method for testing.
-     */
-    public static void main(String[] args) {
-        Maze mz1 = new Maze("level1.txt");
-        System.out.println(mz1);
-        mz1.setMap(1, 1, 5);
-        System.out.println(mz1);
+    public void addToMaze() {
+        wall = false;
     }
 }
