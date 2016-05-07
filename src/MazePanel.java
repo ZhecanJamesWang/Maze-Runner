@@ -9,11 +9,12 @@ import java.awt.event.KeyListener;
  */
 public class MazePanel extends JPanel {
     // All final declarations for maze graphic elements
-    private final int sizeOfCell = 30;
-    private final Color wallColor = Color.blue;
-    private final Color mazeColor = Color.white;
-    private final ImageIcon playerIcon = new ImageIcon("playerIcon.gif");
-    private final ImageIcon goalIcon = new ImageIcon("goalIcon.gif");
+    private final int sizeOfCell = 35;
+    private final Color wallColor = Color.darkGray;
+    private final Color mazeColor = Color.lightGray;
+    private final Color visitedColor = Color.blue;
+    private final ImageIcon playerIcon = new ImageIcon("playerIcon.png");
+    private final ImageIcon goalIcon = new ImageIcon("goalIcon.png");
 
     // Declarations for Maze elements
     private int rows, columns;
@@ -36,8 +37,8 @@ public class MazePanel extends JPanel {
         this.level = "level1.txt"; // set default level to blank
         this.playerLocR = 1;
         this.playerLocC = 1;
-        this.goalLocR = 14;
-        this.goalLocC = 14;
+        this.goalLocR = 13;
+        this.goalLocC = 13;
         mazeObj = new Maze(level);
         addMazeComponents();
 
@@ -76,8 +77,8 @@ public class MazePanel extends JPanel {
         }
 
         mazeLabels[playerLocR][playerLocC].setIcon(playerIcon);
-        mazeLabels[goalLocR][goalLocC].setIcon(playerIcon);
-        setMazeColor();
+        mazeLabels[goalLocR][goalLocC].setIcon(goalIcon);
+        setMazeColor(0, 0);
         add(mazePanel);
     }
 
@@ -86,20 +87,16 @@ public class MazePanel extends JPanel {
         playerLocR += deltaR;
         playerLocC += deltaC;
         mazeLabels[playerLocR][playerLocC].setIcon(playerIcon);
-        setMazeColor();
+        setMazeColor(deltaR, deltaC);
         handleGameOver();
     }
 
-    private void setMazeColor() {
+    private void setMazeColor(int deltaR, int deltaC) {
         mazeLabels[playerLocR][playerLocC].setBackground(mazeColor);
-        if (!mazeObj.getCell(playerLocR + 1, playerLocC).isWall())
-            mazeLabels[playerLocR + 1][playerLocC].setBackground(mazeColor);
-        if (!mazeObj.getCell(playerLocR, playerLocC + 1).isWall())
-            mazeLabels[playerLocR][playerLocC + 1].setBackground(mazeColor);
-        if (!mazeObj.getCell(playerLocR - 1, playerLocC).isWall())
-            mazeLabels[playerLocR - 1][playerLocC].setBackground(mazeColor);
-        if (!mazeObj.getCell(playerLocR, playerLocC - 1).isWall())
-            mazeLabels[playerLocR][playerLocC - 1].setBackground(mazeColor);
+        if (deltaR != 0)
+            mazeLabels[playerLocR + (-1 * deltaR)][playerLocC].setBackground(visitedColor);
+        if (deltaC != 0)
+            mazeLabels[playerLocR][playerLocC + (-1 * deltaC)].setBackground(visitedColor);
     }
 
     public void handleGameOver() {
@@ -109,21 +106,37 @@ public class MazePanel extends JPanel {
         }
     }
 
+    public int getPlayerRow() {
+        return playerLocR;
+    }
+
+    public int getPlayerCol() {
+        return playerLocC;
+    }
+
+    public void setLocColor(int newRow, int newCol) {
+//        check to make sure it is a legal move
+        if (newRow < rows && newCol < columns && !mazeObj.getCell(newRow, newCol).isWall()) {
+            mazeLabels[newRow][newCol].setBackground(visitedColor);
+        }
+//        TODO fail gracefully if unable to set loc color
+    }
+
     private class DirectionListener implements KeyListener {
         public void keyPressed(KeyEvent event) {
-            if (event.getKeyCode() == KeyEvent.VK_UP) {
+            if (event.getKeyCode() == KeyEvent.VK_UP || event.getKeyCode() == KeyEvent.VK_W) {
                 if (!mazeObj.getCell(playerLocR - 1, playerLocC).isWall()) {
                     movePlayer(-1, 0);
                 }
-            } else if (event.getKeyCode() == KeyEvent.VK_DOWN) {
+            } else if (event.getKeyCode() == KeyEvent.VK_DOWN || event.getKeyCode() == KeyEvent.VK_S) {
                 if (!mazeObj.getCell(playerLocR + 1, playerLocC).isWall()) {
                     movePlayer(+1, 0);
                 }
-            } else if (event.getKeyCode() == KeyEvent.VK_LEFT) {
+            } else if (event.getKeyCode() == KeyEvent.VK_LEFT || event.getKeyCode() == KeyEvent.VK_A) {
                 if (!mazeObj.getCell(playerLocR, playerLocC - 1).isWall()) {
                     movePlayer(0, -1);
                 }
-            } else if (event.getKeyCode() == KeyEvent.VK_RIGHT) {
+            } else if (event.getKeyCode() == KeyEvent.VK_RIGHT || event.getKeyCode() == KeyEvent.VK_D) {
                 if (!mazeObj.getCell(playerLocR, playerLocC + 1).isWall()) {
                     movePlayer(0, +1);
                 }
