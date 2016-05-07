@@ -7,17 +7,17 @@ import java.util.Scanner;
  * Implementation that controls movement and maze events.
  */
 public class Maze {
-    private final int rows = 15; //TODO unconstrained the maze size, keeping at 15x15 for now
-    private final int cols = 15; //TODO unconstrained the maze size, keeping at 15x15 for now
+    private final int ROWS = 15; //TODO unconstrained the maze size, keeping at 15x15 for now
+    private final int COLS = 15; //TODO unconstrained the maze size, keeping at 15x15 for now
     private Cell[][] grid;
 
     public Maze(String level) {
         int[][] levelMap = readLevel(level);
 
-        grid = new Cell[rows][cols];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                grid[i][j] = new Cell();  // Initialize each Cell in maze
+        grid = new Cell[ROWS][COLS];
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                grid[i][j] = new Cell();
 
                 if (levelMap[i][j] == 1) {
                     grid[i][j].setWall(true);
@@ -29,7 +29,7 @@ public class Maze {
     }
 
     public int[][] readLevel(String level) {
-        int[][] map = new int[15][15]; //TODO unconstrained the maze size, keeping at 15x15 for now
+        int[][] map = new int[ROWS][COLS]; //TODO unconstrained the maze size, keeping at 15x15 for now
 
         try {
             Scanner scan = new Scanner(new FileReader(level));
@@ -54,6 +54,10 @@ public class Maze {
         return grid[row][col];
     }
 
+    public static void main(String[] args) {
+        Maze mz1 = new Maze("level0.txt");
+        System.out.println(mz1.getCell(14, 14));
+    }
 
 }
 
