@@ -24,10 +24,8 @@ public class MazePanel extends JPanel {
     private int playerLocC;
     private int goalLocR;
     private int goalLocC;
-    private JLabel status, remainHint;
+    private JLabel status;
     private DirectionListener movementListener;
-    private JComboBox<String> levelSelector;
-    private JButton Hint, BFS, DFS; 
 
     /**
      *
@@ -58,24 +56,9 @@ public class MazePanel extends JPanel {
 
     private void addMazeComponents() {
         JPanel mazePanel = new JPanel();
-        JPanel buttonPanel = new JPanel();
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mazePanel.setLayout(new GridLayout(rows, columns));
         mazePanel.setBackground(wallColor);
         mazeLabels = new JLabel[rows][columns];
-        
-        String[] choices = {"Easy", "Medium", "Hard"};
-        levelSelector = new JComboBox<String>(choices);
-        Hint = new JButton("Hint");
-        remainHint = new JLabel("3 hints remain");
-        BFS = new JButton("BFS");
-        DFS = new JButton("DFS");
-        buttonPanel.add(levelSelector);
-        buttonPanel.add(BFS);
-        buttonPanel.add(DFS);
-        buttonPanel.add(Hint);
-        buttonPanel.add(remainHint);
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -95,9 +78,7 @@ public class MazePanel extends JPanel {
         mazeLabels[playerLocR][playerLocC].setIcon(playerIcon);
         mazeLabels[goalLocR][goalLocC].setIcon(playerIcon);
         setMazeColor();
-        mainPanel.add(buttonPanel);
-        mainPanel.add(mazePanel);
-        add(mainPanel);
+        add(mazePanel);
     }
 
     private void movePlayer(int deltaR, int deltaC) {
