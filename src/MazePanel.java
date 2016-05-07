@@ -33,15 +33,15 @@ public class MazePanel extends JPanel {
     public MazePanel() {
         this.rows = 15;
         this.columns = 15;
-        this.level = "level0.txt"; // set default level to blank
+        this.level = "level1.txt"; // set default level to blank
         this.playerLocR = 1;
         this.playerLocC = 1;
-        this.goalLocR = 13;
-        this.goalLocC = 13;
+        this.goalLocR = 14;
+        this.goalLocC = 14;
         mazeObj = new Maze(level);
         addMazeComponents();
 
-        status = new JLabel(""); // TODO not sure if needed
+        status = new JLabel("TESTING"); // TODO not sure if needed
         status.setFont(new Font("Roboto", Font.PLAIN, 24));
         status.setBackground(wallColor);
         status.setForeground(Color.gray);
@@ -127,7 +127,10 @@ public class MazePanel extends JPanel {
                 if (!mazeObj.getCell(playerLocR, playerLocC + 1).isWall()) {
                     movePlayer(0, +1);
                 }
+            } else if (event.getKeyCode() == KeyEvent.VK_ESCAPE || event.getKeyCode() == KeyEvent.VK_Q) {
+                System.exit(0);
             }
+
         }
 
         public void keyTyped (KeyEvent event) {}
