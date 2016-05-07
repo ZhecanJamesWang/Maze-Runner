@@ -18,11 +18,12 @@ public class MazePanel extends JPanel {
     private String level;
     private Maze mazeObj;
     private JLabel[][] mazeLabels;
-    private int[][] playerLoc;
-    private int[][] goalLoc;
+    private int playerLocX;
+    private int playerLocY;
+    private int goalLocX;
+    private int goalLocY;
     private JLabel status;
     private DirectionListener movementListener;
-    private MouseOverListener mouseListener;
 
     /**
      *
@@ -30,10 +31,83 @@ public class MazePanel extends JPanel {
     public MazePanel(int rows, int columns, String level) {
         this.rows = rows;
         this.columns = columns;
-        this.level = ""; // set default level to blank
-        this.playerLoc = new int[1][0];
-        this.goalLoc = new int[14][14];
-        mouseListener = new MouseOverListener();
+        this.level = "level0.txt"; // set default level to blank
+        this.playerLocX = 1;
+        this.playerLocY = 0;
+        this.goalLocX = 14;
+        this.goalLocY = 14;
         mazeObj = new Maze(level);
+        addMazeComponents();
+
+        status = new JLabel(""); // TODO not sure if needed
+        status.setFont(new Font("Roboto", Font.PLAIN, 24));
+        status.setBackground(wallColor);
+        status.setForeground(Color.gray);
+        add(status);
+        movementListener = new DirectionListener();
+        addKeyListener(movementListener);
+
+        setBackground(wallColor);
+        setPreferredSize(new Dimension(columns * sizeOfCell, rows * sizeOfCell + 200)); // TODO space for buttons
+        setFocusable(true);
+    }
+
+    private void addMazeComponents() {
+        JPanel mazePanel = new JPanel();
+        mazePanel.setLayout(new GridLayout(rows, columns));
+        mazePanel.setBackground(wallColor);
+        mazeLabels = new JLabel[rows][columns];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                mazeLabels[i][j] = new JLabel();
+                mazeLabels[i][j].setPreferredSize(new Dimension(sizeOfCell, sizeOfCell));
+                mazeLabels[i][j].setMinimumSize(new Dimension(sizeOfCell, sizeOfCell));
+                Color color = wallColor;
+                if (!mazeObj.getCell(i, j).isWall()) {
+                    color = mazeColor;
+                }
+                mazeLabels[i][j].setBackground(color);
+                mazeLabels[i][j].setOpaque(true);
+                mazePanel.add(mazeLabels[i][j]);
+            }
+        }
+
+        mazeLabels[playerLocX][playerLocY].setIcon(playerIcon);
+        mazeLabels[goalLocX][goalLocY].setIcon(playerIcon);
+        setMazeColor();
+        add(mazePanel);
+    }
+
+    private void movePlayer(int deltaX, int deltaY) {
+        mazeLabels[playerLocX][playerLocY].setIcon(null);
+        playerLocX += deltaX;
+        playerLocY += deltaY;
+        mazeLabels[playerLocX][playerLocY].setIcon(playerIcon);
+        setMazeColor();
+        handleGameOver();
+    }
+
+    private void setMazeColor() {
+        mazeLabels[playerLocX][playerLocY].setBackground(mazeColor);
+        if (!mazeObj.getCell(playerLocX + 1, playerLocY).isWall())
+            mazeLabels[playerLocX + 1][playerLocY].setBackground(mazeColor);
+        if (!mazeObj.getCell(playerLocX, playerLocY + 1).isWall())
+            mazeLabels[playerLocX][playerLocY + 1].setBackground(mazeColor);
+        if (!mazeObj.getCell(playerLocX - 1, playerLocY).isWall())
+            mazeLabels[playerLocX - 1][playerLocY].setBackground(mazeColor);
+        if (!mazeObj.getCell(playerLocX, playerLocY - 1).isWall())
+            mazeLabels[playerLocX][playerLocY - 1].setBackground(mazeColor);
+    }
+
+    public void handleGameOver() {
+        if (playerLocX == goalLocX && playerLocY == goalLocY) {
+            removeKeyListener(movementListener);
+            status.setText("DONE");
+        }
+    }
+
+    private class DirectionListener {
+
     }
 }
