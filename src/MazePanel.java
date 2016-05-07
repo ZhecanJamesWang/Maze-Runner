@@ -12,7 +12,7 @@ public class MazePanel extends JPanel {
     private final int sizeOfCell = 35;
     private final Color wallColor = Color.darkGray;
     private final Color mazeColor = Color.lightGray;
-    private final Color visitedColor = Color.blue;
+    private final Color visitedColor = new Color(0x3498DB);
     private final ImageIcon playerIcon = new ImageIcon("playerIcon.png");
     private final ImageIcon goalIcon = new ImageIcon("goalIcon.png");
 
@@ -111,7 +111,6 @@ public class MazePanel extends JPanel {
     }
 
     private void setMazeColor(int deltaR, int deltaC) {
-        mazeLabels[playerLocR][playerLocC].setBackground(mazeColor);
         if (deltaR != 0)
             mazeLabels[playerLocR + (-1 * deltaR)][playerLocC].setBackground(visitedColor);
         if (deltaC != 0)
@@ -121,7 +120,7 @@ public class MazePanel extends JPanel {
     public void handleGameOver() {
         if (playerLocR == goalLocR && playerLocC == goalLocC) {
             removeKeyListener(movementListener);
-            status.setText("DONE");
+            status.setText("Congratulations! You have solved the maze.");
         }
     }
 
@@ -133,12 +132,14 @@ public class MazePanel extends JPanel {
         return playerLocC;
     }
 
-    public void setLocColor(int newRow, int newCol) {
+    public void setLocColor(int newRow, int newCol) throws Exception {
 //        check to make sure it is a legal move
         if (newRow < rows && newCol < columns && !mazeObj.getCell(newRow, newCol).isWall()) {
             mazeLabels[newRow][newCol].setBackground(visitedColor);
         }
-//        TODO fail gracefully if unable to set loc color
+        else {
+            throw new Exception("That is an invalid space to color");
+        }
     }
 
     private class DirectionListener implements KeyListener {
