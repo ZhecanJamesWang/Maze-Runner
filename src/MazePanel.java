@@ -31,10 +31,16 @@ public class MazePanel extends JPanel {
   /**
    *
    */
-  public MazePanel() {
+  public MazePanel(String l) {
+    if (l == "easy"){
+      this.level = "level1.txt"; 
+    } else if (l == "medium"){
+      this.level = "level2.txt"; 
+    } else if (l == "hard"){
+      this.level = "level3.txt";
+    }
     this.rows = 15;
     this.columns = 15;
-    this.level = "level0.txt"; // set default level to blank
     this.playerLocR = 1;
     this.playerLocC = 1;
     this.goalLocR = 13;
