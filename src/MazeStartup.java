@@ -1,15 +1,13 @@
 import javax.swing.JFrame;
 
-public class MazeStartup
-{
-   public static void main (String[] args)
-   {
-      JFrame frame = new JFrame ("Maze Runner");
-      frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+public class MazeStartup {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Maze Runner");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-      frame.getContentPane().add(new MazeStartupPanel());
+        frame.getContentPane().add(new MazeStartupPanel());
 
-      frame.pack();
-      frame.setVisible(true);
-   }
+        frame.pack();
+        frame.setVisible(true);
+    }
 }

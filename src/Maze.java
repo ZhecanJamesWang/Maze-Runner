@@ -22,8 +22,7 @@ public class Maze {
 
                 if (levelMap[i][j] == 1) {
                     grid[i][j].setWall(true);
-                }
-                else
+                } else
                     grid[i][j].setWall(false);
             }
         }
