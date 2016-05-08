@@ -110,7 +110,7 @@ public class MazePanel extends JPanel {
     }
     
     mazeLabels[playerLocR][playerLocC].setIcon(playerIcon);
-    mazeLabels[goalLocR][goalLocC].setIcon(playerIcon);
+    mazeLabels[goalLocR][goalLocC].setIcon(goalIcon);
     setMazeColor(0,0);
     mainPanel.add(buttonPanel);
     mainPanel.add(mazePanel);
