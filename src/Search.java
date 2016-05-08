@@ -13,8 +13,8 @@ public class Search {
   public ArrayList<Tuple> tuples = new ArrayList<Tuple>();
   private int endVertex;
   
-  public Search(){ 
-    mz = new Maze("level1.txt");
+  public Search(Maze mz){ 
+    this.mz = mz;
     G = new AdjMatGraphPlus<Integer>();
     startVertex = -1;
     endVertex = -2;
@@ -197,26 +197,17 @@ public class Search {
   
   
   public static void main(String[] args) {
-    
-    Search search = new Search();
+    Maze mz = new Maze("level1.txt");
+    Search search = new Search(mz);
     search.uniqueMatrix();
     search.arraytoGraph();
-    // System.out.println(search.G.getVertex(0));
-    // System.out.println(search.G.getVertex(53));
 
-    search.setStartPoint(14, 13);
-    search.setEndPoint(9, 8);
-
-    // System.out.println(search.tuples);
-
-    // System.out.println(search.getTupleIndex(new Tuple(0,1)));
-    // System.out.println(search.getTupleIndex(new Tuple(14,13)));
+    search.setStartPoint(13, 13);
+    search.setEndPoint(1, 1);
 
     System.out.println(search.dfsTraversal());
     System.out.println(search.pathFinding("dfs"));
-
     
-      
     
   }
   

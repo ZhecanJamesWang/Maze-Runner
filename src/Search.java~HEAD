@@ -197,6 +197,7 @@ public class Search {
   
   
   public static void main(String[] args) {
+    
     Search search = new Search();
     search.uniqueMatrix();
     search.arraytoGraph();
@@ -215,9 +216,7 @@ public class Search {
     System.out.println(search.pathFinding("dfs"));
 
     
-    
-    
-    
+      
     
   }
   
