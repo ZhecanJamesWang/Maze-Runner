@@ -1,0 +1,71 @@
+//********************************************************************
+//  MazeStartupPanel.java       CS230 Staff
+//
+//  Select level of difficulty for maze game.
+//********************************************************************
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class MazeStartupPanel extends JPanel
+{
+   private JButton easy, medium, hard, impossible;
+   private JFrame mazeWindow;
+
+   //-----------------------------------------------------------------
+   //  Constructor: Sets up the main GUI components.
+   //-----------------------------------------------------------------
+   public MazeStartupPanel()
+   {
+     easy = new JButton("Easy");
+     medium = new JButton("Medium");
+     hard = new JButton("Hard");
+     impossible = new JButton("Impossible");
+
+     ButtonListener listener = new ButtonListener();
+     easy.addActionListener(listener);
+     medium.addActionListener(listener);
+     hard.addActionListener(listener);
+     impossible.addActionListener(listener);
+
+     add(easy);
+     add(medium);
+     add(hard);
+     add(impossible);
+     
+     setLayout(new GridLayout(4,1));
+     setPreferredSize (new Dimension(400, 150));
+
+     mazeWindow = null;  // Until user selects difficultly level, there is no maze window.
+   }
+
+   //*****************************************************************
+   //  Represents an action listener for the buttons.
+   //*****************************************************************
+   private class ButtonListener implements ActionListener
+   {
+      //--------------------------------------------------------------
+      //  Determines which button was pressed and creates the appropriate level of maze game.
+      public void actionPerformed (ActionEvent event)
+      {
+        if (mazeWindow != null) mazeWindow.dispose();  // Close existing maze window, if it exists.
+        
+        String level = "";
+         if (event.getSource() == easy) // We want to know which button was clicked!
+           level = "easy";
+         else if (event.getSource() == medium)
+           level = "medium";
+         else if (event.getSource() == hard)
+           level = "hard";
+         else if (event.getSource() == impossible)
+           level = "impossible";
+
+         // Create new maze game with specified level of difficulty
+         mazeWindow = new JFrame("Mazy Game: Level " + level.toUpperCase());
+         mazeWindow.getContentPane().add (new MazePanel(21, 21, level));  // 21x21 maze
+         mazeWindow.pack();
+         mazeWindow.setVisible(true);
+      }
+   }
+}
