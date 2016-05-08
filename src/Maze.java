@@ -10,6 +10,7 @@ public class Maze {
     private final int ROWS = 15; //TODO unconstrained the maze size, keeping at 15x15 for now
     private final int COLS = 15; //TODO unconstrained the maze size, keeping at 15x15 for now
     private Cell[][] grid;
+    private int[][] map;
 
     public Maze(String level) {
         int[][] levelMap = readLevel(level);
@@ -29,7 +30,7 @@ public class Maze {
     }
 
     public int[][] readLevel(String level) {
-        int[][] map = new int[ROWS][COLS]; //TODO unconstrained the maze size, keeping at 15x15 for now
+        this.map = new int[ROWS][COLS]; //TODO unconstrained the maze size, keeping at 15x15 for now
 
         try {
             Scanner scan = new Scanner(new FileReader(level));
@@ -52,6 +53,10 @@ public class Maze {
 
     public Cell getCell(int row, int col) {
         return grid[row][col];
+    }
+
+    public int[][] getMap() {
+        return map;
     }
 
     public static void main(String[] args) {
