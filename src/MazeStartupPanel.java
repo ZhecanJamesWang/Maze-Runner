@@ -8,12 +8,20 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * Created by jason.
+ * GUI representation of the start of the maze, specifically level select.
+ */
 public class MazeStartupPanel extends JPanel {
     private JButton easy, medium, hard, quit;
     private JLabel caption, spacer, authors;
     private JFrame mazeWindow;
     private final Color textColor = new Color(0xECF0F1);
 
+    /**
+     * Constructor which takes no args and creates the main window.
+     * Lots of GUI elements and spacers to look nice.
+     */
     public MazeStartupPanel() {
         setBackground(Color.darkGray);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -87,7 +95,14 @@ public class MazeStartupPanel extends JPanel {
         mazeWindow = null;  // Until user selects difficultly level, there is no maze window.
     }
 
+    /**
+     * Button listener subclass to check for user input.
+     */
     private class ButtonListener implements ActionListener {
+        /**
+         * If a button is pressed, perform a specific action for each button.
+         * @param event
+         */
         public void actionPerformed(ActionEvent event) {
             if (mazeWindow != null) mazeWindow.dispose();  // Close existing maze window, if it exists.
             String level = "";
@@ -106,7 +121,14 @@ public class MazeStartupPanel extends JPanel {
         }
     }
 
+    /**
+     * Subclass that checks if the window is being closed and exits gracefully.
+     */
     private class CloseListener implements ActionListener {
+        /**
+         * System exit in a graceful way.
+         * @param e
+         */
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
         }

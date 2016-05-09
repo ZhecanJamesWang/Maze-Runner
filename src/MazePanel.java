@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Created by philip on 5/5/16.
@@ -75,6 +74,9 @@ public class MazePanel extends JPanel {
         setFocusable(true);
     }
 
+    /**
+     *
+     */
     private void addMazeComponents() {
         JPanel mazePanel = new JPanel();
         JPanel buttonPanel = new JPanel();
@@ -143,6 +145,11 @@ public class MazePanel extends JPanel {
         add(mainPanel);
     }
 
+    /**
+     *
+     * @param deltaR
+     * @param deltaC
+     */
     private void movePlayer(int deltaR, int deltaC) {
         mazeLabels[playerLocR][playerLocC].setIcon(null);
         playerLocR += deltaR;
@@ -152,6 +159,11 @@ public class MazePanel extends JPanel {
         handleGameOver();
     }
 
+    /**
+     *
+     * @param deltaR
+     * @param deltaC
+     */
     private void setMazeColor(int deltaR, int deltaC) {
         if (deltaR != 0)
             mazeLabels[playerLocR + (-1 * deltaR)][playerLocC].setBackground(visitedColor);
@@ -159,10 +171,18 @@ public class MazePanel extends JPanel {
             mazeLabels[playerLocR][playerLocC + (-1 * deltaC)].setBackground(visitedColor);
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public void setCellColor(int x, int y) {
         mazeLabels[y][x].setBackground(hintColor);
     }
 
+    /**
+     *
+     */
     public void handleGameOver() {
         if (playerLocR == goalLocR && playerLocC == goalLocC) {
             removeKeyListener(movementListener);
@@ -170,14 +190,28 @@ public class MazePanel extends JPanel {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPlayerRow() {
         return playerLocR;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPlayerCol() {
         return playerLocC;
     }
 
+    /**
+     *
+     * @param newRow
+     * @param newCol
+     * @throws Exception
+     */
     public void setLocColor(int newRow, int newCol) throws Exception {
 //        check to make sure it is a legal move
         if (newRow < rows && newCol < columns && !mazeObj.getCell(newRow, newCol).isWall()) {
@@ -187,7 +221,14 @@ public class MazePanel extends JPanel {
         }
     }
 
+    /**
+     *
+     */
     private class DirectionListener implements KeyListener {
+        /**
+         *
+         * @param event
+         */
         public void keyPressed(KeyEvent event) {
             if (event.getKeyCode() == KeyEvent.VK_UP || event.getKeyCode() == KeyEvent.VK_W) {
                 if (!mazeObj.getCell(playerLocR - 1, playerLocC).isWall()) {
@@ -211,14 +252,29 @@ public class MazePanel extends JPanel {
 
         }
 
+        /**
+         *
+         * @param event
+         */
         public void keyTyped(KeyEvent event) {
         }
 
+        /**
+         *
+         * @param event
+         */
         public void keyReleased(KeyEvent event) {
         }
     }
 
+    /**
+     *
+     */
     private class ButtonListener implements ActionListener {
+        /**
+         *
+         * @param e
+         */
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == BFS) {
                 search.bfsTraversal();

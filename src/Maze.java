@@ -12,6 +12,10 @@ public class Maze {
     private Cell[][] grid;
     private int[][] map;
 
+    /**
+     *
+     * @param level
+     */
     public Maze(String level) {
         int[][] levelMap = readLevel(level);
 
@@ -28,6 +32,11 @@ public class Maze {
         }
     }
 
+    /**
+     *
+     * @param level
+     * @return
+     */
     public int[][] readLevel(String level) {
         this.map = new int[ROWS][COLS]; //TODO unconstrained the maze size, keeping at 15x15 for now
 
@@ -50,14 +59,28 @@ public class Maze {
         return map;
     }
 
+    /**
+     *
+     * @param row
+     * @param col
+     * @return
+     */
     public Cell getCell(int row, int col) {
         return grid[row][col];
     }
 
+    /**
+     *
+     * @return
+     */
     public int[][] getMap() {
         return map;
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Maze mz1 = new Maze("level0.txt");
         System.out.println(mz1.getCell(14, 14));
@@ -73,18 +96,32 @@ public class Maze {
 class Cell {
     private boolean wall;
 
+    /**
+     *
+     */
     public Cell() {
         this.wall = true;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isWall() {
         return wall;
     }
 
+    /**
+     *
+     * @param isWall
+     */
     public void setWall(boolean isWall) {
         wall = isWall;
     }
 
+    /**
+     *
+     */
     public void addToMaze() {
         wall = false;
     }

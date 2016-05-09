@@ -1,5 +1,9 @@
 import java.util.*;
 
+/**
+ * Created by james.
+ * Class for performing BFS and DFS search.
+ */
 public class Search {
     public static final int NOT_FOUND = -1;
     private Maze mz;
@@ -11,6 +15,10 @@ public class Search {
     public ArrayList<Tuple> tuples = new ArrayList<Tuple>();
     private int endVertex;
 
+    /**
+     * Constructor which takes a maze and builds a graph representation of it.
+     * @param mz
+     */
     public Search(Maze mz) {
         this.mz = mz;
         G = new AdjMatGraphPlus<Integer>();
@@ -18,22 +26,42 @@ public class Search {
         endVertex = -2;
     }
 
+    /**
+     * Gets tuple values for a specific index for easier reference in the graph.
+     * @param index
+     * @return
+     */
     private Tuple getTuple(int index) {
         return tuples.get(index);
     }
 
+    /**
+     * Sets the starting point of where search is going to be performed.
+     * @param row
+     * @param col
+     */
     public void setStartPoint(int row, int col) {
         Tuple start = new Tuple(row, col);
         int startIndex = getTupleIndex(start);
         startVertex = G.getVertex(startIndex);
     }
 
+    /**
+     * Sets the end point of where search will stop if completed successfully.
+     * @param row
+     * @param col
+     */
     public void setEndPoint(int row, int col) {
         Tuple end = new Tuple(row, col);
         int endIndex = getTupleIndex(end);
         endVertex = G.getVertex(endIndex);
     }
 
+    /**
+     * Find the index of specific tuple values.
+     * @param tuple
+     * @return
+     */
     private int getTupleIndex(Tuple tuple) {
         for (int i = 0; i < tuples.size(); i++) {
             if ((tuples.get(i).x == tuple.x) && (tuples.get(i).y == tuple.y)) {
@@ -43,12 +71,19 @@ public class Search {
         return NOT_FOUND;
     }
 
+    /**
+     * Gets the array representation of the maze object and is saved in uniqueMatrix.
+     * @return
+     */
     public int[][] getArray() {
         int[][] matrix = mz.getMap();
         uniqueMatrix = new int[matrix.length][matrix[0].length];
         return matrix;
     }
 
+    /**
+     * Transforms the maze with start point being saved as -1 and end as -2.
+     */
     public void uniqueMatrix() {
         int count = 1;
         int[][] matrix = getArray();
@@ -68,23 +103,14 @@ public class Search {
                 }
             }
         }
-
-//        Testing used for printing out the matrix path
-//        for (int row = 0; row < matrix.length; row++) {
-//            for (int col = 0; col < matrix[row].length; col++) {
-//                if (uniqueMatrix[row][col] > 9) {
-//                    System.out.print(uniqueMatrix[row][col]);
-//                    System.out.print(" ");
-//                } else {
-//                    System.out.print(uniqueMatrix[row][col]);
-//                    System.out.print("  ");
-//                }
-//            }
-//            System.out.println();
-//        }
     }
 
-
+    /**
+     * Finds the neighboring values of a specific row/col value.
+     * @param value
+     * @param row
+     * @param col
+     */
     public void findNeighbors(int value, int row, int col) {
         for (int r = -1; r <= 1; r++) {
             try {
@@ -107,6 +133,9 @@ public class Search {
         }
     }
 
+    /**
+     * Converts the map object into a graph.
+     */
     public void arraytoGraph() {
         Tuple tuple = new Tuple(0, 0);
         for (int row = 0; row < uniqueMatrix.length; row++) {
@@ -128,6 +157,10 @@ public class Search {
         }
     }
 
+    /**
+     * Performs DFS traversal over the graph, returning a path of tuples.
+     * @return
+     */
     public LinkedList<Integer> dfsTraversal() {
         LinkedList<Integer> pathList = G.dfsTraversal(startVertex);
         LinkedList<Integer> newPathList = new LinkedList<Integer>();
@@ -140,6 +173,10 @@ public class Search {
         return newPathList;
     }
 
+    /**
+     * Performs BFS traversal over the graph, returning a path of tuples.
+     * @return
+     */
     public LinkedList<Integer> bfsTraversal() {
         LinkedList<Integer> pathList = G.bfsTraversal(startVertex);
         LinkedList<Integer> newPathList = new LinkedList<Integer>();
@@ -152,6 +189,11 @@ public class Search {
         return newPathList;
     }
 
+    /**
+     * Returns the path list in an easier to use format as tuples.
+     * @param method
+     * @return
+     */
     public ArrayList<Tuple> pathFinding(String method) {
         LinkedList<Integer> pathList = new LinkedList<Integer>();
         ArrayList<Tuple> path = new ArrayList<Tuple>();
@@ -175,7 +217,10 @@ public class Search {
         return path;
     }
 
-
+    /**
+     * Testing method for BFS and DFS search.
+     * @param args
+     */
     public static void main(String[] args) {
         Maze mz = new Maze("level1.txt");
         Search search = new Search(mz);
