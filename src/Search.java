@@ -216,26 +216,4 @@ public class Search {
 
         return path;
     }
-
-    /**
-     * Testing method for BFS and DFS search.
-     * @param args
-     */
-    public static void main(String[] args) {
-        Maze mz = new Maze("level1.txt");
-        Search search = new Search(mz);
-        search.uniqueMatrix();
-        search.arraytoGraph();
-
-        search.setStartPoint(13, 13);
-        search.setEndPoint(1, 1);
-
-        System.out.println(search.dfsTraversal());
-        System.out.println(search.pathFinding("dfs"));
-
-
-    }
-
 }
-
-

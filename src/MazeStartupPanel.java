@@ -133,6 +133,4 @@ public class MazeStartupPanel extends JPanel {
             System.exit(0);
         }
     }
-
-
 }

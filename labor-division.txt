@@ -1,0 +1,38 @@
+Labor plan
+Philip Seger, Ziyi Lan, Zhecan Wang
+
+Group portion:
+team will implement the search techniques in the Maze class
+GUI will be developed as a group (individual small parts split up among teams)
+testing and documentation
+
+Philip:
+Maze class:
+reading from text maze file
+creating maze datatype (2D array)
+creating maze graph for use with search
+GUI:
+creating visual representation of the maze
+showing search techniques overlaid on the maze
+Game:
+implement user controls, hint system
+
+Zhecan:
+Breadth search
+Depth search
+Maze class:
+implementing search within the maze
+Game:
+implement controls, hint system
+
+Ziyi:
+Breadth search
+Depth search
+Maze class:
+implementing search within the maze
+basic graph interface
+Game:
+implement controls, hint system
+GUI
+Implement main menu
+Improve front-end aesthetics

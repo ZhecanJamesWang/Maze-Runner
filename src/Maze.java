@@ -72,16 +72,6 @@ public class Maze {
     public int[][] getMap() {
         return map;
     }
-
-    /**
-     * Testing main for array bound issue.
-     * @param args
-     */
-    public static void main(String[] args) {
-        Maze mz1 = new Maze("level0.txt");
-        System.out.println(mz1.getCell(14, 14));
-    }
-
 }
 
 
