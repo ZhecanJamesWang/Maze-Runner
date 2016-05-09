@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
- * Created by philip on 5/5/16.
+ * Created by philip.
  * GUI representation of the Maze object.
  */
 public class MazePanel extends JPanel {
@@ -61,23 +61,28 @@ public class MazePanel extends JPanel {
 
         addMazeComponents();
 
+//        set the colors and attributes
         status = new JLabel("Try first, then get hints!"); // TODO not sure if needed
         status.setFont(new Font("Roboto", Font.PLAIN, 24));
         status.setBackground(wallColor);
         status.setForeground(Color.gray);
         add(status);
+//        movement listener to control with keyboard
         movementListener = new DirectionListener();
         addKeyListener(movementListener);
 
+//        set size of window
         setBackground(wallColor);
         setPreferredSize(new Dimension(columns * sizeOfCell, rows * sizeOfCell + 100)); // TODO space for buttons
         setFocusable(true);
     }
 
     /**
-     *
+     * Creates the maze panel and adds the player/goal icons, coloring of cells, and
+     * general maze characteristics
      */
     private void addMazeComponents() {
+//        create all the panels/attributes
         JPanel mazePanel = new JPanel();
         JPanel buttonPanel = new JPanel();
         JPanel mainPanel = new JPanel();
@@ -87,6 +92,7 @@ public class MazePanel extends JPanel {
         mazePanel.setBackground(wallColor);
         mazeLabels = new JLabel[rows][columns];
 
+//        create all the attributes for the buttons
         Hint = new JButton("Hint");
         hintCount = 3;
         remainHint = new JLabel(hintCount + " hints remaining");
@@ -107,12 +113,13 @@ public class MazePanel extends JPanel {
         Hint.setFocusPainted(false);
         Hint.setFont(new Font("Roboto", Font.PLAIN, 24));
 
+//        listen for inputs from the bfs/dfs/hint buttons
         ButtonListener buttonListener = new ButtonListener();
         BFS.addActionListener(buttonListener);
         DFS.addActionListener(buttonListener);
         Hint.addActionListener(buttonListener);
 
-//        TODO Check that this isn't too hacky
+//        don't hold focus on the buttons so we can still control the maze
         BFS.setFocusable(false);
         DFS.setFocusable(false);
         Hint.setFocusable(false);
@@ -122,6 +129,8 @@ public class MazePanel extends JPanel {
         buttonPanel.add(Hint);
         buttonPanel.add(remainHint);
 
+//        each "cell" is a JLabel, which we can color and change on the fly
+//        here we go through the whole grid and create each JLabel object, sazing in mazeLabels
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 mazeLabels[i][j] = new JLabel();
@@ -137,6 +146,7 @@ public class MazePanel extends JPanel {
             }
         }
 
+//        set goal and player icons in their positions
         mazeLabels[playerLocR][playerLocC].setIcon(playerIcon);
         mazeLabels[goalLocR][goalLocC].setIcon(goalIcon);
         setMazeColor(0, 0);
@@ -146,25 +156,28 @@ public class MazePanel extends JPanel {
     }
 
     /**
-     *
-     * @param deltaR
-     * @param deltaC
+     * Move the player using a change amount, updates the icon to the new position and overwrites the old
+     * @param deltaR change in row amount (usually should only be 1 or 0)
+     * @param deltaC change in column amount (usually should only be 1 or 0)
      */
     private void movePlayer(int deltaR, int deltaC) {
         mazeLabels[playerLocR][playerLocC].setIcon(null);
         playerLocR += deltaR;
         playerLocC += deltaC;
+//        color over the changes, with the input we provide we can color the path of where we just visited
         mazeLabels[playerLocR][playerLocC].setIcon(playerIcon);
         setMazeColor(deltaR, deltaC);
+//        check if game over after every move
         handleGameOver();
     }
 
     /**
-     *
-     * @param deltaR
-     * @param deltaC
+     * Sets the cell color to draw a path from where the player has gone to where they are heading
+     * @param deltaR row position of move
+     * @param deltaC column position of move
      */
     private void setMazeColor(int deltaR, int deltaC) {
+//            use -1 * delta to get position we just moved from
         if (deltaR != 0)
             mazeLabels[playerLocR + (-1 * deltaR)][playerLocC].setBackground(visitedColor);
         if (deltaC != 0)
@@ -172,16 +185,16 @@ public class MazePanel extends JPanel {
     }
 
     /**
-     *
-     * @param x
-     * @param y
+     * Set a specific cell's color
+     * @param x position
+     * @param y position
      */
     public void setCellColor(int x, int y) {
         mazeLabels[y][x].setBackground(hintColor);
     }
 
     /**
-     *
+     * If the player has reached the goal, stop listening to input and print win message
      */
     public void handleGameOver() {
         if (playerLocR == goalLocR && playerLocC == goalLocC) {
@@ -191,26 +204,26 @@ public class MazePanel extends JPanel {
     }
 
     /**
-     *
-     * @return
+     * Getter for player row position
+     * @return row position
      */
     public int getPlayerRow() {
         return playerLocR;
     }
 
     /**
-     *
-     * @return
+     * Getter for player column position
+     * @return column position
      */
     public int getPlayerCol() {
         return playerLocC;
     }
 
     /**
-     *
-     * @param newRow
-     * @param newCol
-     * @throws Exception
+     * Setter for a specific location's color, for use with search class
+     * @param newRow row location
+     * @param newCol column location
+     * @throws Exception if the space is a wall/out of bounds
      */
     public void setLocColor(int newRow, int newCol) throws Exception {
 //        check to make sure it is a legal move
@@ -222,11 +235,12 @@ public class MazePanel extends JPanel {
     }
 
     /**
-     *
+     * Created by philip.
+     * Listens for user input and moves in the maze.
      */
     private class DirectionListener implements KeyListener {
         /**
-         *
+         * Listen for up/down/left/right or w/s/a/d input for user movement.
          * @param event
          */
         public void keyPressed(KeyEvent event) {
@@ -253,42 +267,40 @@ public class MazePanel extends JPanel {
         }
 
         /**
-         *
-         * @param event
+         * Unnecessary methods.
          */
-        public void keyTyped(KeyEvent event) {
-        }
-
-        /**
-         *
-         * @param event
-         */
-        public void keyReleased(KeyEvent event) {
-        }
+        public void keyTyped(KeyEvent event) {}
+        public void keyReleased(KeyEvent event) {}
     }
 
     /**
-     *
+     * Created by philip.
+     * Listens for button input and performs DFS/BFS/Hint depending on input.
      */
     private class ButtonListener implements ActionListener {
         /**
-         *
+         * Listens for button input for bfs and dfs and hints.
          * @param e
          */
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == BFS) {
+//                run the bfs traversal
                 search.bfsTraversal();
+//                save the runthrough in an arraylist
                 ArrayList<Tuple> al = search.pathFinding("bfs");
+//                set the cell colors for each tuple
                 for (int i = 0; i < al.size(); i++) {
                     setCellColor(al.get(i).getY(), al.get(i).getX());
                 }
             } else if (e.getSource() == DFS) {
+//                same as bfs, but now run dfs traversal
                 search.dfsTraversal();
                 ArrayList<Tuple> al = search.pathFinding("dfs");
                 for (int i = 0; i < al.size(); i++) {
                     setCellColor(al.get(i).getY(), al.get(i).getX());
                 }
             } else if (e.getSource() == Hint) {
+//                if you have used all hints, not allowed to use any more
                 if (hintCount == 0) {
                     status.setText("No more hints availbale");
                     return;

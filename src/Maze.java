@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 /**
- * Created by philip on 5/5/16.
+ * Created by philip.
  * Implementation that controls movement and maze events.
  */
 public class Maze {
@@ -13,7 +13,7 @@ public class Maze {
     private int[][] map;
 
     /**
-     *
+     * Constructor for the maze, creates the level by reading from text file.
      * @param level
      */
     public Maze(String level) {
@@ -33,7 +33,7 @@ public class Maze {
     }
 
     /**
-     *
+     * Read the level from a txt file and save in an 2D array.
      * @param level
      * @return
      */
@@ -60,7 +60,7 @@ public class Maze {
     }
 
     /**
-     *
+     * Getters and setters for cell, map.
      * @param row
      * @param col
      * @return
@@ -69,16 +69,12 @@ public class Maze {
         return grid[row][col];
     }
 
-    /**
-     *
-     * @return
-     */
     public int[][] getMap() {
         return map;
     }
 
     /**
-     *
+     * Testing main for array bound issue.
      * @param args
      */
     public static void main(String[] args) {
@@ -90,21 +86,21 @@ public class Maze {
 
 
 /**
- * Created by philip on 5/5/16.
+ * Created by philip.
  * Represents one cell in the maze.
  */
 class Cell {
     private boolean wall;
 
     /**
-     *
+     * Create a new cell with wall being true by default.
      */
     public Cell() {
         this.wall = true;
     }
 
     /**
-     *
+     * Method returning if a cell is a wall.
      * @return
      */
     public boolean isWall() {
@@ -112,7 +108,7 @@ class Cell {
     }
 
     /**
-     *
+     * Sets the sepcific cell as a wall.
      * @param isWall
      */
     public void setWall(boolean isWall) {
@@ -120,7 +116,7 @@ class Cell {
     }
 
     /**
-     *
+     * Adds a new cell to the maze that is by default false.
      */
     public void addToMaze() {
         wall = false;
