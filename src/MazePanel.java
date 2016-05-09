@@ -2,9 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 /**
- * Created by philip.
+ * Created by philip, jason, james.
  * GUI representation of the Maze object.
  */
 public class MazePanel extends JPanel {
@@ -31,11 +33,17 @@ public class MazePanel extends JPanel {
     private int hintCount;
     private JButton Hint, BFS, DFS;
     private Search search;
+    private JPanel mazePanel;
+    private MultithreadingColor multithreadingColor1;
+    private MultithreadingColor multithreadingColor2;
 
     /**
      *
      */
     public MazePanel(String l) {
+        multithreadingColor1 = new MultithreadingColor();
+        multithreadingColor2 = new MultithreadingColor();
+
         if (l == "easy") {
             this.level = "level1.txt";
         } else if (l == "medium") {
@@ -234,6 +242,17 @@ public class MazePanel extends JPanel {
         }
     }
 
+    public void clear(){
+        for(int row = 0; row < mazeLabels.length; row++){
+            for(int col = 0; col < mazeLabels[0].length; col++ ){
+                if (!mazeObj.getCell(row, col).isWall()) {
+                    mazeLabels[row][col].setBackground(mazeColor);
+                }
+            }
+        }
+
+    }
+
     /**
      * Created by philip.
      * Listens for user input and moves in the maze.
@@ -274,10 +293,45 @@ public class MazePanel extends JPanel {
     }
 
     /**
+     * Enables multithreading for coloring properly.
+     */
+    class MultithreadingColor extends Thread{
+        private ArrayList<Tuple> al;
+
+        public MultithreadingColor(){
+        }
+
+        public MultithreadingColor(ArrayList<Tuple> al){
+            this.al = al;
+        }
+
+        public void run(){
+            for (int i = 0; i < al.size(); i++) {
+                setCellColor(al.get(i).getY(), al.get(i).getX());
+                try{
+                    TimeUnit.MILLISECONDS.sleep(200);
+                }catch(InterruptedException ex){
+                    System.out.println("time out exception");
+                }
+            }
+        }
+    }
+
+    /**
      * Created by philip.
      * Listens for button input and performs DFS/BFS/Hint depending on input.
      */
     private class ButtonListener implements ActionListener {
+        public void clearThreads(){
+            if((multithreadingColor2 != null) && (multithreadingColor2.getState() != Thread.State.TERMINATED)){
+                multithreadingColor2.stop();
+            }
+
+            if((multithreadingColor1 != null) && (multithreadingColor1.getState() != Thread.State.TERMINATED)){
+                multithreadingColor1.stop();
+            }
+        }
+
         /**
          * Listens for button input for bfs and dfs and hints.
          * @param e
@@ -286,19 +340,28 @@ public class MazePanel extends JPanel {
             if (e.getSource() == BFS) {
 //                run the bfs traversal
                 search.bfsTraversal();
-//                save the runthrough in an arraylist
+                int x, y;
                 ArrayList<Tuple> al = search.pathFinding("bfs");
-//                set the cell colors for each tuple
-                for (int i = 0; i < al.size(); i++) {
-                    setCellColor(al.get(i).getY(), al.get(i).getX());
-                }
+
+                clearThreads();
+
+                clear();
+
+                multithreadingColor1 = new MultithreadingColor(al);
+                multithreadingColor1.start();
+
             } else if (e.getSource() == DFS) {
 //                same as bfs, but now run dfs traversal
                 search.dfsTraversal();
                 ArrayList<Tuple> al = search.pathFinding("dfs");
-                for (int i = 0; i < al.size(); i++) {
-                    setCellColor(al.get(i).getY(), al.get(i).getX());
-                }
+
+                clearThreads();
+
+                clear();
+
+                multithreadingColor2 = new MultithreadingColor(al);
+                multithreadingColor2.start();
+
             } else if (e.getSource() == Hint) {
 //                if you have used all hints, not allowed to use any more
                 if (hintCount == 0) {
@@ -311,11 +374,16 @@ public class MazePanel extends JPanel {
 //                do a new search from the current player location
                 search.uniqueMatrix();
                 search.arraytoGraph();
+
                 search.setStartPoint(playerLocR, playerLocC);
                 search.setEndPoint(13, 13);
+
+                // search.setStartPoint(13, 13);
+                // search.setEndPoint(playerLocR, playerLocC);
+
                 search.dfsTraversal();
                 ArrayList<Tuple> al = search.pathFinding("dfs");
-                setCellColor(al.get(1).getY(), al.get(1).getX());
+                setCellColor(al.get(al.size() - 2 ).getY(), al.get( al.size() - 2 ).getX());
             }
         }
     }
