@@ -60,7 +60,6 @@ public class MazePanel extends JPanel {
         mazeObj = new Maze(level);
 
 //        perform search for later use
-//        TODO cleanup
         this.search = new Search(mazeObj);
         search.uniqueMatrix();
         search.arraytoGraph();
@@ -70,7 +69,7 @@ public class MazePanel extends JPanel {
         addMazeComponents();
 
 //        set the colors and attributes
-        status = new JLabel("Try first, then get hints!"); // TODO not sure if needed
+        status = new JLabel("Try first, then get hints!");
         status.setFont(new Font("Roboto", Font.PLAIN, 24));
         status.setBackground(wallColor);
         status.setForeground(Color.gray);
@@ -81,7 +80,7 @@ public class MazePanel extends JPanel {
 
 //        set size of window
         setBackground(wallColor);
-        setPreferredSize(new Dimension(columns * sizeOfCell, rows * sizeOfCell + 100)); // TODO space for buttons
+        setPreferredSize(new Dimension(columns * sizeOfCell, rows * sizeOfCell + 100));
         setFocusable(true);
     }
 
