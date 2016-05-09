@@ -382,7 +382,7 @@ public class MazePanel extends JPanel {
 
                 search.dfsTraversal();
                 ArrayList<Tuple> al = search.pathFinding("dfs");
-                setCellColor(al.get(al.size() - 2 ).getY(), al.get( al.size() - 2 ).getX());
+                setCellColor(al.get(1).getY(), al.get(1).getX());
             }
         }
     }
